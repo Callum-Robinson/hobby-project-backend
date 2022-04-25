@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.qa.hobbyprojectbackend.data.entity.MyCharacter;
 import com.qa.hobbyprojectbackend.data.repository.CharacterRepository;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
+import com.qa.hobbyprojectbackend.dto.NewCharacterDTO;
 
 @Service
 public class CharacterService {
@@ -52,5 +53,12 @@ public class CharacterService {
 			return this.toDTO(character.get());
 		}
 		throw new EntityNotFoundException("Character not found with id " + id);
+	}
+	
+	// Create a Character
+	public MyCharacterDTO createCharacter(NewCharacterDTO character) {
+		MyCharacter toSave = this.modelMapper.map(character, MyCharacter.class);
+		MyCharacter newCharacter = characterRepository.save(toSave);
+		return this.toDTO(newCharacter);
 	}
 }
