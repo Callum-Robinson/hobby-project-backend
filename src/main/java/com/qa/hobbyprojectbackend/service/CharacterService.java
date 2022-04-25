@@ -2,6 +2,9 @@ package com.qa.hobbyprojectbackend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +44,13 @@ public class CharacterService {
 		return dtos;
 	}
 	
-	
+	// Get a Character by id
+	public MyCharacterDTO getCharacter(int id) {
+		Optional<MyCharacter> character = characterRepository.findById(id);
+		
+		if (character.isPresent()) {
+			return this.toDTO(character.get());
+		}
+		throw new EntityNotFoundException("Character not found with id " + id);
+	}
 }
