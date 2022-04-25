@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -19,8 +18,14 @@ public class Character {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotNull (message = "Race cannot be null")
-	@NotBlank (message = "Race cannot be empty")
+	@NotBlank (message = "A character needs a race")
 	@Size(min = 3, max = 20, message = "Race needs a minimum of 3 characters and maximum of 20")
 	private String race;
+	
+	@Size(max = 64, message = "Subrace cannot exceed 64 characters")
+	private String subrace;
+	
+	@NotBlank (message = "A character needs a class")
+	@Size(min = 4, max = 20, message = "Class needs a minimum of 4 characters and a maximum of 20")
+	private String character_class;
 }
