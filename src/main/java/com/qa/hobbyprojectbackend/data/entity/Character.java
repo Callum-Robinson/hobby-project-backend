@@ -9,11 +9,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
-@Data
 @Table(name = "character")
+@Data
+@AllArgsConstructor
 public class Character {
 
 	@Id
