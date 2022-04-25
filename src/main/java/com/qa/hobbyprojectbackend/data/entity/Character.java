@@ -28,4 +28,12 @@ public class Character {
 	@NotBlank (message = "A character needs a class")
 	@Size(min = 4, max = 20, message = "Class needs a minimum of 4 characters and a maximum of 20")
 	private String character_class;
+	
+	private int level;
+	
+	@Size(max = 64, message = "Archetype cannot exceed 64 characters")
+	private String archetype;
+	
+	@Size(max = 64, message = "Background cannot exceed 64 characters")
+	private String background;
 }
