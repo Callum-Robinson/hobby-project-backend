@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,23 @@ public class CharacterService {
 		MyCharacter toSave = this.modelMapper.map(character, MyCharacter.class);
 		MyCharacter newCharacter = characterRepository.save(toSave);
 		return this.toDTO(newCharacter);
+	}
+	
+	// Update a Character
+	@Transactional
+	public MyCharacterDTO updateCharacter(NewCharacterDTO character, int id) {
+		if (characterRepository.existsById(id)) {
+			MyCharacter savedCharacter = characterRepository.getById(id);
+			savedCharacter.setName(character.getName());
+			savedCharacter.setRace(character.getRace());
+			savedCharacter.setSubrace(character.getSubrace());
+			savedCharacter.setCharacter_class(character.getCharacter_class());
+			savedCharacter.setLevel(character.getLevel());
+			savedCharacter.setArchetype(character.getArchetype());
+			savedCharacter.setBackground(character.getBackground());
+			
+			return this.toDTO(savedCharacter);
+		}
+		throw new EntityNotFoundException("Character not found with id " + id);
 	}
 }
