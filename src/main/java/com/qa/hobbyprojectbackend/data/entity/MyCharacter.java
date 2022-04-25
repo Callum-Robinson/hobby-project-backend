@@ -16,7 +16,7 @@ import lombok.Data;
 @Table(name = "character")
 @Data
 @AllArgsConstructor
-public class Character {
+public class MyCharacter {
 
 	@Id
 	@Column(name = "id")
@@ -30,6 +30,7 @@ public class Character {
 	@Size(max = 64, message = "Subrace cannot exceed 64 characters")
 	private String subrace;
 	
+	@Column(name = "class")
 	@NotBlank (message = "A character needs a class")
 	@Size(min = 4, max = 20, message = "Class needs a minimum of 4 characters and a maximum of 20")
 	private String character_class;
