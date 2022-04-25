@@ -23,6 +23,10 @@ public class MyCharacter {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NotBlank (message = "A character needs a name")
+	@Size(min = 3, max = 64, message = "Name needs a minimum of 3 characters and maximum of 64")
+	private String name;
+	
 	@NotBlank (message = "A character needs a race")
 	@Size(min = 3, max = 20, message = "Race needs a minimum of 3 characters and maximum of 20")
 	private String race;
@@ -42,4 +46,17 @@ public class MyCharacter {
 	
 	@Size(max = 64, message = "Background cannot exceed 64 characters")
 	private String background;
+
+	public MyCharacter(String name, String race, String subrace, String character_class, int level, String archetype, String background) {
+		super();
+		this.name = name;
+		this.race = race;
+		this.subrace = subrace;
+		this.character_class = character_class;
+		this.level = level;
+		this.archetype = archetype;
+		this.background = background;
+	}
+	
+	
 }

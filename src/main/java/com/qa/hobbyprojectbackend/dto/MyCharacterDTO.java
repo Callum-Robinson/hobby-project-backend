@@ -14,6 +14,10 @@ public class MyCharacterDTO {
 
 	private int id;
 	
+	@NotBlank (message = "A character needs a name")
+	@Size(min = 3, max = 64, message = "Name needs a minimum of 3 characters and maximum of 64")
+	private String name;
+	
 	@NotBlank (message = "A character needs a race")
 	@Size(min = 3, max = 20, message = "Race needs a minimum of 3 characters and maximum of 20")
 	private String race;
