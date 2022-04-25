@@ -80,4 +80,13 @@ public class CharacterService {
 		}
 		throw new EntityNotFoundException("Character not found with id " + id);
 	}
+	
+	// Delete a Character
+	public void deleteCharacter(int id) {
+		if (characterRepository.existsById(id)) {
+			characterRepository.deleteById(id);
+			return;
+		}
+		throw new EntityNotFoundException("Character not found with id " + id);
+	}
 }
