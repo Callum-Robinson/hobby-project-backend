@@ -24,10 +24,12 @@ public class CharacterService {
 		this.modelMapper = modelMapper;
 	}
 	
+	// Maps character to DTO
 	private MyCharacterDTO toDTO(MyCharacter character) {
 		return this.modelMapper.map(character, MyCharacterDTO.class);
 	}
 	
+	// Get all Characters
 	public List<MyCharacterDTO> getCharacters() {
 		List<MyCharacter> characters = characterRepository.findAll();
 		List<MyCharacterDTO> dtos = new ArrayList<>();
@@ -38,4 +40,6 @@ public class CharacterService {
 		
 		return dtos;
 	}
+	
+	
 }
