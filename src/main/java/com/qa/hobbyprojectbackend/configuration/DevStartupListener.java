@@ -26,7 +26,7 @@ public class DevStartupListener implements ApplicationListener<ApplicationReadyE
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 		List<MyCharacter> characters = characterRepository.saveAll(List.of(
 				new MyCharacter("Teoz", "Leonine", "", "Paladin", 5, "Oath of Vengeance", "Knight"),
-				new MyCharacter("Maria", "Tabaxi", "", "Rogue", 5, "Swashbuckler", "Pirate")
+				new MyCharacter("Maria", "Tabaxi", "", "Rogue", 5, "Swashbuckler", "Sailor")
 				));
 	}
 }
