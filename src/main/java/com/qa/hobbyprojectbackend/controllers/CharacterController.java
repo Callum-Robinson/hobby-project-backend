@@ -42,7 +42,7 @@ public class CharacterController {
 	}
 	
 	// get mapping for read by character id
-	@GetMapping(path = "/{id)")
+	@GetMapping(path = "/{id}")
 	public ResponseEntity<MyCharacterDTO> getCharacter(@PathVariable(name = "id") int id) {
 		MyCharacterDTO character = characterService.getCharacter(id);
 		return new ResponseEntity<>(character, HttpStatus.OK);
