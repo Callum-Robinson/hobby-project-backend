@@ -3,12 +3,13 @@ package com.qa.hobbyprojectbackend.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class NewWeaponDTO {
 
