@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.qa.hobbyprojectbackend.data.entity.Weapon;
 import com.qa.hobbyprojectbackend.data.repository.WeaponRepository;
 import com.qa.hobbyprojectbackend.dto.NewWeaponDTO;
+import com.qa.hobbyprojectbackend.dto.UpdateWeaponDTO;
 import com.qa.hobbyprojectbackend.dto.WeaponDTO;
 
 @Service
@@ -66,11 +67,29 @@ public class WeaponService {
 	}
 	
 	// Create weapon
-	public WeaponDTO createWeapon(NewWeaponDTO weapon) {
-		Weapon toSave = this.modelMapper.map(weapon, Weapon.class);
+	public WeaponDTO createWeapon(NewWeaponDTO weaponDTO) {
+		Weapon toSave = this.modelMapper.map(weaponDTO, Weapon.class);
 		Weapon newWeapon = weaponRepository.save(toSave);
 		return this.toDTO(newWeapon);
 	}
 	
-	
+	// Update weapon
+	public WeaponDTO updateWeapon(UpdateWeaponDTO weaponDTO, int id) {
+		if (weaponRepository.existsById(id)) {
+			Weapon savedWeapon = weaponRepository.getById(id);
+			
+			savedWeapon.setName(weaponDTO.getName());
+			savedWeapon.setBase_weapon(weaponDTO.getBase_weapon());
+			savedWeapon.setWeapon_type(weaponDTO.getWeapon_type());
+			savedWeapon.setRarity(weaponDTO.getRarity());
+			savedWeapon.setCost(weaponDTO.getCost());
+			savedWeapon.setDamage(weaponDTO.getDamage());
+			savedWeapon.setDamage_type(weaponDTO.getDamage_type());
+			savedWeapon.setProperties(weaponDTO.getProperties());
+			savedWeapon.setAdditional_abilities(weaponDTO.getAdditional_abilities());
+			
+			return this.toDTO(weaponRepository.save(savedWeapon));
+		}
+		throw new EntityNotFoundException("Weapon not found with id " + id);
+	}
 }
