@@ -2,9 +2,12 @@ package com.qa.hobbyprojectbackend.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -24,6 +27,10 @@ public class Weapon {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "character_id", referencedColumnName = "id")
+	private MyCharacter character;
 	
 	@NotBlank(message = "A weapon needs a name")
 	@Size(max = 64, message = "Weapon name can have a maximum of 64 characters")
@@ -57,9 +64,10 @@ public class Weapon {
 	
 	@Size(max = 512, message = "Weapon abilities can have a maximum of 512 characters")
 	private String additional_abilities;
-
-	public Weapon(String name, String base_weapon, String weapon_type, String rarity, String cost, String damage, String damageType, String properties, String additional_abilities) {
+	
+	public Weapon(MyCharacter character, String name, String base_weapon, String weapon_type, String rarity, String cost, String damage, String damageType, String properties, String additional_abilities) {
 		super();
+		this.character = character;
 		this.name = name;
 		this.base_weapon = base_weapon;
 		this.weapon_type = weapon_type;
