@@ -102,5 +102,4 @@ public class WeaponService {
 		throw new EntityNotFoundException("Weapon not found with id " + id);
 	}
 	
-	
 }

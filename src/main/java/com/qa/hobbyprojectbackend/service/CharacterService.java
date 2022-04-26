@@ -16,18 +16,21 @@ import com.qa.hobbyprojectbackend.data.repository.CharacterRepository;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.NewCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.UpdateCharacterDTO;
+import com.qa.hobbyprojectbackend.dto.WeaponDTO;
 
 @Service
 public class CharacterService {
 
 	private CharacterRepository characterRepository;
 	private ModelMapper modelMapper;
+	private WeaponService weaponService;
 	
 	@Autowired
 	public CharacterService(CharacterRepository characterRepository, ModelMapper modelMapper) {
 		super();
 		this.characterRepository = characterRepository;
 		this.modelMapper = modelMapper;
+		this.weaponService = weaponService;
 	}
 	
 	// Maps character to DTO
@@ -89,5 +92,13 @@ public class CharacterService {
 			return;
 		}
 		throw new EntityNotFoundException("Character not found with id " + id);
+	}
+	
+	// Get characters weapons
+	public List<WeaponDTO> getCharacterWeapons(int characterId) {
+		MyCharacterDTO character = this.getCharacter(characterId);
+		List<WeaponDTO> weapons = weaponService.getWeaponsByCharacterId(characterId);
+		weapons.forEach(weapon -> weapon.setMyCharacterDTO(character));
+		return weapons;
 	}
 }
