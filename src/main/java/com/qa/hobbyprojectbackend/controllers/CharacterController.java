@@ -68,7 +68,7 @@ public class CharacterController {
 	
 	// put mapping for updating character
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<MyCharacterDTO> updateCharacter(@RequestBody UpdateCharacterDTO updateCharacterDTO, 
+	public ResponseEntity<MyCharacterDTO> updateCharacter(@Valid @RequestBody UpdateCharacterDTO updateCharacterDTO, 
 			@PathVariable(name = "id") int id) {
 		return ResponseEntity.ok(characterService.updateCharacter(updateCharacterDTO, id));
 	}
