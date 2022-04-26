@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.hobbyprojectbackend.dto.NewWeaponDTO;
+import com.qa.hobbyprojectbackend.dto.UpdateWeaponDTO;
 import com.qa.hobbyprojectbackend.dto.WeaponDTO;
 import com.qa.hobbyprojectbackend.service.WeaponService;
 
@@ -55,5 +57,9 @@ public class WeaponController {
 		return new ResponseEntity<>(newWeapon, headers, HttpStatus.CREATED);
 	}
 	
-	
+	// Put mapping to update weapons
+	@PutMapping(path = "/{id}")
+	public ResponseEntity<WeaponDTO> updateWeapon(@Valid @RequestBody UpdateWeaponDTO weapon, @PathVariable(name = "id") int id) {
+		return ResponseEntity.ok(weaponService.updateWeapon(weapon, id));
+	}
 }
