@@ -2,16 +2,22 @@ package com.qa.hobbyprojectbackend.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
+import com.qa.hobbyprojectbackend.dto.NewCharacterDTO;
 import com.qa.hobbyprojectbackend.service.CharacterService;
 
 @RestController
@@ -37,5 +43,16 @@ public class CharacterController {
 	public ResponseEntity<MyCharacterDTO> getCharacter(@PathVariable(name = "id") int id) {
 		MyCharacterDTO character = characterService.getCharacter(id);
 		return new ResponseEntity<>(character, HttpStatus.OK);
+	}
+	
+	// post mapping for create character
+	@PostMapping
+	public ResponseEntity<MyCharacterDTO> createCharacter(@Valid @RequestBody NewCharacterDTO character) {
+		MyCharacterDTO newCharacter = characterService.createCharacter(character);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Location", "http://localhost:8080/character/" + newCharacter.getId());
+		
+		return new ResponseEntity<>(newCharacter, headers, HttpStatus.CREATED);
 	}
 }
