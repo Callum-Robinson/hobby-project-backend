@@ -1,5 +1,8 @@
 package com.qa.hobbyprojectbackend.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,4 +27,16 @@ public class WeaponService {
 	private WeaponDTO toDTO(Weapon weapon) {
 		return modelMapper.map(weapon, WeaponDTO.class);
 	}
+	
+	public List<WeaponDTO> getWeapons() {
+		List<Weapon> weapons = weaponRepository.findAll();
+		List<WeaponDTO> dtos = new ArrayList<>();
+		
+		for (Weapon weapon : weapons) {
+			dtos.add(this.toDTO(weapon));
+		}
+		return dtos;
+	}
+	
+	
 }
