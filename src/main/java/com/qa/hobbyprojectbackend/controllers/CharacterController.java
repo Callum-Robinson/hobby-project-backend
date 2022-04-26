@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.NewCharacterDTO;
+import com.qa.hobbyprojectbackend.dto.UpdateCharacterDTO;
 import com.qa.hobbyprojectbackend.service.CharacterService;
 
 @RestController
@@ -57,5 +59,9 @@ public class CharacterController {
 	}
 	
 	// put mapping for updating character
-	
+	@PutMapping(path = "/{id}")
+	public ResponseEntity<MyCharacterDTO> updateCharacter(@RequestBody UpdateCharacterDTO updateCharacterDTO, 
+			@PathVariable(name = "id") int id) {
+		return ResponseEntity.ok(characterService.updateCharacter(updateCharacterDTO, id));
+	}
 }

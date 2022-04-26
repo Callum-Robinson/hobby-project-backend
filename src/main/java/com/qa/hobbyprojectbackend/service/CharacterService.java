@@ -15,6 +15,7 @@ import com.qa.hobbyprojectbackend.data.entity.MyCharacter;
 import com.qa.hobbyprojectbackend.data.repository.CharacterRepository;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.NewCharacterDTO;
+import com.qa.hobbyprojectbackend.dto.UpdateCharacterDTO;
 
 @Service
 public class CharacterService {
@@ -65,7 +66,7 @@ public class CharacterService {
 	
 	// Update a Character
 	@Transactional
-	public MyCharacterDTO updateCharacter(NewCharacterDTO character, int id) {
+	public MyCharacterDTO updateCharacter(UpdateCharacterDTO character, int id) {
 		if (characterRepository.existsById(id)) {
 			MyCharacter savedCharacter = characterRepository.getById(id);
 			savedCharacter.setName(character.getName());
