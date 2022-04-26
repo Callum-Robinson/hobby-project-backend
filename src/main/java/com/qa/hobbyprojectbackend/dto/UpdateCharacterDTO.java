@@ -4,10 +4,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 public class UpdateCharacterDTO {
 
 	@NotBlank (message = "A character needs a name")

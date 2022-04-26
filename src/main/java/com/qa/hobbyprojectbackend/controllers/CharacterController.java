@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.NewCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.UpdateCharacterDTO;
+import com.qa.hobbyprojectbackend.dto.WeaponDTO;
 import com.qa.hobbyprojectbackend.service.CharacterService;
 
 @RestController
@@ -48,6 +49,12 @@ public class CharacterController {
 		return new ResponseEntity<>(character, HttpStatus.OK);
 	}
 	
+	// get mapping for character weapons
+	@GetMapping(path = "/{id}/weapons")
+	public ResponseEntity<List<WeaponDTO>> getCharacterWeapons(@PathVariable(name = "id") int characterId) {
+		return ResponseEntity.ok(characterService.getCharacterWeapons(characterId));
+	}
+	
 	// post mapping for create character
 	@PostMapping
 	public ResponseEntity<MyCharacterDTO> createCharacter(@Valid @RequestBody NewCharacterDTO character) {
@@ -61,7 +68,7 @@ public class CharacterController {
 	
 	// put mapping for updating character
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<MyCharacterDTO> updateCharacter(@RequestBody UpdateCharacterDTO updateCharacterDTO, 
+	public ResponseEntity<MyCharacterDTO> updateCharacter(@Valid @RequestBody UpdateCharacterDTO updateCharacterDTO, 
 			@PathVariable(name = "id") int id) {
 		return ResponseEntity.ok(characterService.updateCharacter(updateCharacterDTO, id));
 	}
