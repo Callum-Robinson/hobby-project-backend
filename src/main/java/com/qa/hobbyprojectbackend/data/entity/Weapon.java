@@ -57,7 +57,7 @@ public class Weapon {
 	
 	@NotBlank(message = "A weapon needs a damage type")
 	@Size(max = 64, message = "Weapon damage type can have a maximum of 64 characters")
-	private String damageType;
+	private String damage_type;
 	
 	@Size(max = 256, message = "Weapon properties can have a maximum of 256 characters")
 	private String properties;
@@ -74,7 +74,7 @@ public class Weapon {
 		this.rarity = rarity;
 		this.cost = cost;
 		this.damage = damage;
-		this.damageType = damageType;
+		this.damage_type = damageType;
 		this.properties = properties;
 		this.additional_abilities = additional_abilities;
 	}
@@ -88,7 +88,7 @@ public class Weapon {
 		this.rarity = rarity;
 		this.cost = cost;
 		this.damage = damage;
-		this.damageType = damageType;
+		this.damage_type = damageType;
 		this.properties = properties;
 		this.additional_abilities = additional_abilities;
 	}
