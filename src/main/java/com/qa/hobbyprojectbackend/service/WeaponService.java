@@ -92,4 +92,15 @@ public class WeaponService {
 		}
 		throw new EntityNotFoundException("Weapon not found with id " + id);
 	}
+	
+	// Delete weapon
+	public void deleteWeapon(int id) {
+		if (weaponRepository.existsById(id)) {
+			weaponRepository.deleteById(id);
+			return;
+		}
+		throw new EntityNotFoundException("Weapon not found with id " + id);
+	}
+	
+	
 }
