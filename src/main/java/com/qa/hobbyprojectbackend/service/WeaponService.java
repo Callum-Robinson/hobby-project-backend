@@ -24,12 +24,25 @@ public class WeaponService {
 		this.modelMapper = modelMapper;
 	}
 	
+	// Maps weapon to DTO
 	private WeaponDTO toDTO(Weapon weapon) {
 		return modelMapper.map(weapon, WeaponDTO.class);
 	}
 	
+	// Get all weapons
 	public List<WeaponDTO> getWeapons() {
 		List<Weapon> weapons = weaponRepository.findAll();
+		List<WeaponDTO> dtos = new ArrayList<>();
+		
+		for (Weapon weapon : weapons) {
+			dtos.add(this.toDTO(weapon));
+		}
+		return dtos;
+	}
+	
+	// Get weapons by character id
+	public List<WeaponDTO> getWeaponsByCharacterId(int id) {
+		List<Weapon> weapons = weaponRepository.findByMyCharacterId(id);
 		List<WeaponDTO> dtos = new ArrayList<>();
 		
 		for (Weapon weapon : weapons) {
