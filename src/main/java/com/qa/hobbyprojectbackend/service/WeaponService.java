@@ -47,7 +47,7 @@ public class WeaponService {
 	
 	// Get weapons by character id
 	public List<WeaponDTO> getWeaponsByCharacterId(int id) {
-		List<Weapon> weapons = weaponRepository.findByMyCharacterId(id);
+		List<Weapon> weapons = weaponRepository.findByCharacterId(id);
 		List<WeaponDTO> dtos = new ArrayList<>();
 		
 		for (Weapon weapon : weapons) {

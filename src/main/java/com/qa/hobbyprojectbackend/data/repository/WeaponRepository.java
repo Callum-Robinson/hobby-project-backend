@@ -8,5 +8,5 @@ import com.qa.hobbyprojectbackend.data.entity.Weapon;
 
 public interface WeaponRepository extends JpaRepository<Weapon, Integer> {
 
-	List<Weapon> findByMyCharacterId(int id);
+	List<Weapon> findByCharacterId(int id);
 }
