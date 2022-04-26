@@ -26,7 +26,7 @@ public class CharacterService {
 	private WeaponService weaponService;
 	
 	@Autowired
-	public CharacterService(CharacterRepository characterRepository, ModelMapper modelMapper) {
+	public CharacterService(CharacterRepository characterRepository, ModelMapper modelMapper, WeaponService weaponService) {
 		super();
 		this.characterRepository = characterRepository;
 		this.modelMapper = modelMapper;
