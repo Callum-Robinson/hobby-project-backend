@@ -36,9 +36,9 @@ public class DevStartupListener implements ApplicationListener<ApplicationReadyE
 		MyCharacter character = characters.stream().filter(c -> c.getName().equals("Teoz")).findFirst().orElse(null);
 		
 		List<Weapon> weapons = weaponRepository.saveAll(List.of(
-				new Weapon("Manticore's Wrath", "Greataxe", "Martial Melee Weapon", "Very Rare", "30gp", "1d12 + 2", 
+				new Weapon(character, "Manticore's Wrath", "Greataxe", "Martial Melee Weapon", "Very Rare", "30gp", "1d12 + 2", 
 						"Slashing", "Heavy, Two-Handed, Ranged", "+2 to attack rolls, ranged attack launching the spikes from the axe"),
-				new Weapon("Blackened Steel Heavy Hammer", "Maul", "Martial Melee Weapon", "Rare", "10gp", "2d6 + 1",
+				new Weapon(character, "Blackened Steel Heavy Hammer", "Maul", "Martial Melee Weapon", "Rare", "10gp", "2d6 + 1",
 						"Bludgeoning", "Heavy, Two-Handed", "+1 to hit and damage, has a ground attack")
 				));
 	}
