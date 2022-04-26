@@ -55,4 +55,7 @@ public class CharacterController {
 		
 		return new ResponseEntity<>(newCharacter, headers, HttpStatus.CREATED);
 	}
+	
+	// put mapping for updating character
+	
 }
