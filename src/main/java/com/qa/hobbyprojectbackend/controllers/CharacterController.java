@@ -27,4 +27,7 @@ public class CharacterController {
 	public ResponseEntity<List<MyCharacterDTO>> getCharacters() {
 		return ResponseEntity.ok(characterService.getCharacters());
 	}
+	
+	// get mapping for read by character id
+	
 }
