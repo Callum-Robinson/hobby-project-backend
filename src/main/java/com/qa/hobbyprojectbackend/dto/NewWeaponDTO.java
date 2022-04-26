@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NewWeaponDTO {
 
+
+	private MyCharacterDTO myCharacterDTO;
+	
 	@NotBlank(message = "A weapon needs a name")
 	@Size(max = 64, message = "Weapon name can have a maximum of 64 characters")
 	private String name;

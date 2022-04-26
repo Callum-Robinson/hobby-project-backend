@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.NewWeaponDTO;
 import com.qa.hobbyprojectbackend.dto.UpdateWeaponDTO;
 import com.qa.hobbyprojectbackend.dto.WeaponDTO;
+import com.qa.hobbyprojectbackend.service.CharacterService;
 import com.qa.hobbyprojectbackend.service.WeaponService;
 
 @RestController
@@ -29,10 +31,12 @@ import com.qa.hobbyprojectbackend.service.WeaponService;
 public class WeaponController {
 
 	private WeaponService weaponService;
+	private CharacterService characterService;
 	
 	@Autowired
-	public WeaponController(WeaponService weaponService) {
+	public WeaponController(WeaponService weaponService, CharacterService characterService) {
 		this.weaponService = weaponService;
+		this.characterService = characterService;
 	}
 	
 	// Get all weapons mapping
@@ -48,14 +52,18 @@ public class WeaponController {
 	}
 	
 	// Post mapping for creating weapons
-	@PostMapping
-	public ResponseEntity<WeaponDTO> createWeapon(@Valid @RequestBody NewWeaponDTO weapon) {
-		WeaponDTO newWeapon = weaponService.createWeapon(weapon);
+	@PostMapping(path = "/{characterId}")
+	public ResponseEntity<WeaponDTO> createWeapon(@Valid @RequestBody NewWeaponDTO weapon, @PathVariable(name = "characterId") int characterId) {
+		MyCharacterDTO character = characterService.getCharacter(characterId);
 		
+		weapon.setMyCharacterDTO(character);
+		WeaponDTO newWeapon = weaponService.createWeapon(weapon);
+			
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", "http://localhost:8080/weapon/" + newWeapon.getId());
-		
+			
 		return new ResponseEntity<>(newWeapon, headers, HttpStatus.CREATED);
+
 	}
 	
 	// Put mapping to update weapons
