@@ -24,7 +24,7 @@ import com.qa.hobbyprojectbackend.dto.UpdateCharacterDTO;
 import com.qa.hobbyprojectbackend.service.CharacterService;
 
 @RestController
-@RequestMapping(path = "/user")
+@RequestMapping(path = "/character")
 @CrossOrigin("*")
 public class CharacterController {
 
