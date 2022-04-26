@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.qa.hobbyprojectbackend.data.entity.Weapon;
 import com.qa.hobbyprojectbackend.data.repository.WeaponRepository;
+import com.qa.hobbyprojectbackend.dto.NewWeaponDTO;
 import com.qa.hobbyprojectbackend.dto.WeaponDTO;
 
 @Service
@@ -62,6 +63,13 @@ public class WeaponService {
 			return this.toDTO(weapon.get());
 		}
 		throw new EntityNotFoundException("Weapon not found with id " + id);
+	}
+	
+	// Create weapon
+	public WeaponDTO createWeapon(NewWeaponDTO weapon) {
+		Weapon toSave = this.modelMapper.map(weapon, Weapon.class);
+		Weapon newWeapon = weaponRepository.save(toSave);
+		return this.toDTO(newWeapon);
 	}
 	
 	
