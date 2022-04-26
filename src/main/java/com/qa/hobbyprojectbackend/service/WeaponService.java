@@ -2,6 +2,9 @@ package com.qa.hobbyprojectbackend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +52,16 @@ public class WeaponService {
 			dtos.add(this.toDTO(weapon));
 		}
 		return dtos;
+	}
+	
+	// Get weapon by weapon id
+	public WeaponDTO getWeapon(int id) {
+		Optional<Weapon> weapon = weaponRepository.findById(id);
+		
+		if (weapon.isPresent()) {
+			return this.toDTO(weapon.get());
+		}
+		throw new EntityNotFoundException("Weapon not found with id " + id);
 	}
 	
 	
