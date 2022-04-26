@@ -3,6 +3,7 @@ package com.qa.hobbyprojectbackend.data.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,7 +51,7 @@ public class MyCharacter {
 	@Size(max = 64, message = "Background cannot exceed 64 characters")
 	private String background;
 	
-	@OneToMany(mappedBy = "character", targetEntity = Weapon.class, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "character", cascade = {CascadeType.REMOVE}, targetEntity = Weapon.class, fetch = FetchType.LAZY)
 	private List<Weapon> weapons;
 
 	
