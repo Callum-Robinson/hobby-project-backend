@@ -1,8 +1,13 @@
 package com.qa.hobbyprojectbackend.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -36,6 +41,23 @@ public class CharacterServiceUnitTest {
 		characterDTOs = List.of(
 				new MyCharacterDTO(1, "Teoz", "Leonine", "", "Paladin", 5, "Oath of Vengeance", "Knight"),
 				new MyCharacterDTO(2, "Maria", "Tabaxi", "", "Rogue", 5, "Swashbuckler", "Sailor"));
+	}
+	
+	@Test
+	public void getAllTest() {
+		// Arrange
+		when(characterRepository.findAll()).thenReturn(characters);
+		when(modelMapper.map(characters.get(0), MyCharacterDTO.class)).thenReturn(characterDTOs.get(0));
+		when(modelMapper.map(characters.get(1), MyCharacterDTO.class)).thenReturn(characterDTOs.get(1));
+		
+		// Act
+		List<MyCharacterDTO> actual = characterService.getCharacters();
+		
+		// Assert
+		assertEquals(characterDTOs, actual);
+		verify(characterRepository).findAll();
+		verify(modelMapper).map(characters.get(0), MyCharacterDTO.class);
+		verify(modelMapper).map(characters.get(1), MyCharacterDTO.class);
 	}
 	
 	
