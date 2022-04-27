@@ -151,6 +151,19 @@ public class CharacterServiceUnitTest {
 	}
 	
 	@Test
+	public void deleteTest() {
+		// Arrange
+		int id = 1;
+		when(characterRepository.existsById(id)).thenReturn(true);
+		
+		// Act
+		characterService.deleteCharacter(id);
+		
+		// Assert 
+		verify(characterRepository).existsById(id);
+	}
+	
+	@Test
 	public void getCharacterWeaponsTest() {
 		// Arrange
 		MyCharacter character = characters.get(0);
