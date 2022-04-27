@@ -35,7 +35,7 @@ public class CharacterServiceUnitTest {
 	private ModelMapper modelMapper;
 	
 	@Mock
-	private WeaponService weaponservice;
+	private WeaponService weaponService;
 	
 	@InjectMocks
 	private CharacterService characterService;
@@ -148,5 +148,26 @@ public class CharacterServiceUnitTest {
 		verify(modelMapper).map(characterDTO, MyCharacter.class);
 		verify(characterRepository).save(character);
 		verify(modelMapper).map(character, MyCharacterDTO.class);
+	}
+	
+	@Test
+	public void getCharacterWeaponsTest() {
+		// Arrange
+		MyCharacter character = characters.get(0);
+		MyCharacterDTO characterDTO = characterDTOs.get(0);
+		int id = character.getId();
+		
+		when(characterRepository.findById(id)).thenReturn(Optional.of(character));
+		when(modelMapper.map(character, MyCharacterDTO.class)).thenReturn(characterDTO);
+		when(weaponService.getWeaponsByCharacterId(id)).thenReturn(weaponDTOs);
+		
+		// Act
+		List<WeaponDTO> actual = characterService.getCharacterWeapons(id);
+		
+		// Assert
+		assertEquals(weaponDTOs, actual);
+		verify(characterRepository).findById(id);
+		verify(modelMapper).map(character, MyCharacterDTO.class);
+		verify(weaponService).getWeaponsByCharacterId(id);
 	}
 }
