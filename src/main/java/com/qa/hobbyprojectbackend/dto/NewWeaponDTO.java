@@ -60,5 +60,4 @@ public class NewWeaponDTO {
 		this.additional_abilities = additional_abilities;
 	}
 	
-	
 }

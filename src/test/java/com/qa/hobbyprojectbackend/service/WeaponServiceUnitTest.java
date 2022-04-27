@@ -22,6 +22,7 @@ import com.qa.hobbyprojectbackend.data.entity.MyCharacter;
 import com.qa.hobbyprojectbackend.data.entity.Weapon;
 import com.qa.hobbyprojectbackend.data.repository.WeaponRepository;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
+import com.qa.hobbyprojectbackend.dto.NewWeaponDTO;
 import com.qa.hobbyprojectbackend.dto.WeaponDTO;
 
 @ExtendWith(MockitoExtension.class)
@@ -133,5 +134,33 @@ public class WeaponServiceUnitTest {
 		String expectedMessage = "Weapon not found with id " + id;
 		assertEquals(expectedMessage, exception.getMessage());
 		verify(weaponRepository).findById(id);
+	}
+	
+	@Test
+	public void createTest() {
+		// Arrange
+		MyCharacterDTO characterDTO = characterDTOs.get(0);
+		Weapon weapon = weapons.get(0);
+		Weapon newWeapon = new Weapon(1, weapon.getCharacter(), weapon.getName(), weapon.getBase_weapon(), weapon.getWeapon_type(), weapon.getRarity(), 
+				weapon.getCost(), weapon.getDamage(), weapon.getDamage_type(), weapon.getProperties(), weapon.getAdditional_abilities());
+		WeaponDTO expected = weaponDTOs.get(0);
+		
+		NewWeaponDTO weaponDTO = new NewWeaponDTO(weapon.getName(), weapon.getBase_weapon(), weapon.getWeapon_type(), weapon.getRarity(), 
+				weapon.getCost(), weapon.getDamage(), weapon.getDamage_type(), weapon.getProperties(), weapon.getAdditional_abilities());
+		WeaponDTO createdWeaponDTO = new WeaponDTO(1, characterDTO, weapon.getName(), weapon.getBase_weapon(), weapon.getWeapon_type(), weapon.getRarity(), 
+				weapon.getCost(), weapon.getDamage(), weapon.getDamage_type(), weapon.getProperties(), weapon.getAdditional_abilities());
+		
+		when(modelMapper.map(weaponDTO, Weapon.class)).thenReturn(newWeapon);
+		when(weaponRepository.save(newWeapon)).thenReturn(weapon);
+		when(modelMapper.map(weapon, WeaponDTO.class)).thenReturn(createdWeaponDTO);
+		
+		// Act
+		WeaponDTO actual = weaponService.createWeapon(weaponDTO);
+		
+		// Assert
+		assertEquals(expected, actual);
+		verify(modelMapper).map(weaponDTO, Weapon.class);
+		verify(weaponRepository).save(newWeapon);
+		verify(modelMapper).map(weapon, WeaponDTO.class);
 	}
 }
