@@ -65,20 +65,6 @@ public class Weapon {
 	@Size(max = 512, message = "Weapon abilities can have a maximum of 512 characters")
 	private String additional_abilities;
 	
-	
-	public Weapon(String name, String base_weapon, String weapon_type, String rarity, String cost, String damage, String damageType, String properties, String additional_abilities) {
-		super();
-		this.name = name;
-		this.base_weapon = base_weapon;
-		this.weapon_type = weapon_type;
-		this.rarity = rarity;
-		this.cost = cost;
-		this.damage = damage;
-		this.damage_type = damageType;
-		this.properties = properties;
-		this.additional_abilities = additional_abilities;
-	}
-	
 	public Weapon(MyCharacter character, String name, String base_weapon, String weapon_type, String rarity, String cost, String damage, String damageType, String properties, String additional_abilities) {
 		super();
 		this.character = character;
