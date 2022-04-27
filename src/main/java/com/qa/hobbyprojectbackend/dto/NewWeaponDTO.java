@@ -4,13 +4,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class NewWeaponDTO {
 
 
@@ -48,4 +46,19 @@ public class NewWeaponDTO {
 	
 	@Size(max = 512, message = "Weapon abilities can have a maximum of 512 characters")
 	private String additional_abilities;
+
+	public NewWeaponDTO(String name, String base_weapon, String weapon_type, String rarity, String cost, String damage, String damage_type, String properties, String additional_abilities) {
+		super();
+		this.name = name;
+		this.base_weapon = base_weapon;
+		this.weapon_type = weapon_type;
+		this.rarity = rarity;
+		this.cost = cost;
+		this.damage = damage;
+		this.damage_type = damage_type;
+		this.properties = properties;
+		this.additional_abilities = additional_abilities;
+	}
+	
+	
 }
