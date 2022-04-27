@@ -75,5 +75,23 @@ public class WeaponServiceUnitTest {
 		verify(modelMapper).map(weapons.get(1), WeaponDTO.class);
 	}
 	
-	
+	@Test
+	public void getByCharacterTest() {
+		// Arrange
+		Weapon weapon = weapons.get(0);
+		int characterId = weapon.getCharacter().getId();
+		
+		when(weaponRepository.findByCharacterId(characterId)).thenReturn(weapons);
+		when(modelMapper.map(weapons.get(0), WeaponDTO.class)).thenReturn(weaponDTOs.get(0));
+		when(modelMapper.map(weapons.get(1), WeaponDTO.class)).thenReturn(weaponDTOs.get(1));
+		
+		// Act
+		List<WeaponDTO> actual = weaponService.getWeaponsByCharacterId(characterId);
+		
+		// Assert
+		assertEquals(weaponDTOs, actual);
+		verify(weaponRepository).findByCharacterId(characterId);
+		verify(modelMapper).map(weapons.get(0), WeaponDTO.class);
+		verify(modelMapper).map(weapons.get(1), WeaponDTO.class);
+	}
 }
