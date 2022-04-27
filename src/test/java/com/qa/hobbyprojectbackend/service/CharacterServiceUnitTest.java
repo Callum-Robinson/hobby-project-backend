@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,5 +61,22 @@ public class CharacterServiceUnitTest {
 		verify(modelMapper).map(characters.get(1), MyCharacterDTO.class);
 	}
 	
-	
+	@Test
+	public void getByIdTest() {
+		// Arrange
+		MyCharacter character = characters.get(0);
+		MyCharacterDTO characterDTO = characterDTOs.get(0);
+		int id = character.getId();
+		
+		when(characterRepository.findById(id)).thenReturn(Optional.of(character));
+		when(modelMapper.map(character, MyCharacterDTO.class)).thenReturn(characterDTO);
+		
+		// Act
+		MyCharacterDTO actual = characterService.getCharacter(id);
+		
+		// Assert
+		assertEquals(characterDTO, actual);
+		verify(characterRepository).findById(id);
+		verify(modelMapper).map(character, MyCharacterDTO.class);
+	}
 }
