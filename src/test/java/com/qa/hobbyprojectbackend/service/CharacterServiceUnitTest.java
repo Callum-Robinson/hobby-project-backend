@@ -153,14 +153,31 @@ public class CharacterServiceUnitTest {
 	@Test
 	public void deleteTest() {
 		// Arrange
-		int id = 1;
-		when(characterRepository.existsById(id)).thenReturn(true);
+		int validId = 1;
+		when(characterRepository.existsById(validId)).thenReturn(true);
 		
 		// Act
-		characterService.deleteCharacter(id);
+		characterService.deleteCharacter(validId);
 		
 		// Assert 
-		verify(characterRepository).existsById(id);
+		verify(characterRepository).existsById(validId);
+	}
+	
+	@Test
+	public void invalidIdDeleteTest() {
+		// Arrange
+		int invalidId = 300;
+		when(characterRepository.existsById(invalidId)).thenReturn(false);
+		
+		// Act
+		EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
+			characterService.deleteCharacter(invalidId);
+		});
+		
+		// Assert
+		String expectedMessage = "Character not found with id " + invalidId;
+		assertEquals(expectedMessage, exception.getMessage());
+		verify(characterRepository).existsById(invalidId);
 	}
 	
 	@Test
