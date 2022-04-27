@@ -23,6 +23,7 @@ import com.qa.hobbyprojectbackend.data.entity.Weapon;
 import com.qa.hobbyprojectbackend.data.repository.WeaponRepository;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.NewWeaponDTO;
+import com.qa.hobbyprojectbackend.dto.UpdateCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.UpdateWeaponDTO;
 import com.qa.hobbyprojectbackend.dto.WeaponDTO;
 
@@ -230,5 +231,23 @@ public class WeaponServiceUnitTest {
 		verify(weaponRepository).getById(id);
 		verify(weaponRepository).save(weapon);
 		verify(modelMapper).map(weapon, WeaponDTO.class);
+	}
+	
+	@Test
+	public void invalidUpdateTest() {
+		// Arrange
+		int id = 456;
+		UpdateWeaponDTO weaponDTO = new UpdateWeaponDTO();
+		when(weaponRepository.existsById(id)).thenReturn(false);
+		
+		// Act
+		EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
+			weaponService.updateWeapon(weaponDTO, id);
+		});
+		
+		// Assert
+		String expectedMessage = "Weapon not found with id " + id;
+		assertEquals(expectedMessage, exception.getMessage());
+		verify(weaponRepository).existsById(id);
 	}
 }
