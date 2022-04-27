@@ -23,6 +23,7 @@ import com.qa.hobbyprojectbackend.data.entity.Weapon;
 import com.qa.hobbyprojectbackend.data.repository.CharacterRepository;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.NewCharacterDTO;
+import com.qa.hobbyprojectbackend.dto.UpdateCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.WeaponDTO;
 
 @ExtendWith(MockitoExtension.class)
@@ -178,6 +179,38 @@ public class CharacterServiceUnitTest {
 		String expectedMessage = "Character not found with id " + invalidId;
 		assertEquals(expectedMessage, exception.getMessage());
 		verify(characterRepository).existsById(invalidId);
+	}
+	
+	@Test
+	public void updateTest() {
+		// Arrange
+		MyCharacter character = characters.get(1);
+		int id = character.getId();
+		
+		UpdateCharacterDTO characterDTO = new UpdateCharacterDTO();
+		characterDTO.setName(character.getName());
+		characterDTO.setRace(character.getRace());
+		characterDTO.setSubrace(character.getSubrace());
+		characterDTO.setCharacter_class(character.getCharacter_class());
+		characterDTO.setLevel(character.getLevel());
+		characterDTO.setArchetype(character.getArchetype());
+		characterDTO.setBackground(character.getBackground());
+		
+		MyCharacterDTO updated = new MyCharacterDTO(character.getId(), character.getName(), character.getRace(), 
+				character.getSubrace(), character.getCharacter_class(), character.getLevel(), character.getArchetype(), character.getBackground());
+		
+		when(characterRepository.existsById(id)).thenReturn(true);
+		when(characterRepository.getById(id)).thenReturn(character);
+		when(modelMapper.map(character, MyCharacterDTO.class)).thenReturn(updated);
+		
+		// Act
+		MyCharacterDTO actual = characterService.updateCharacter(characterDTO, id);
+		
+		// Assert
+		assertEquals(updated, actual);
+		verify(characterRepository).existsById(id);
+		verify(characterRepository).getById(id);
+		verify(modelMapper).map(character, MyCharacterDTO.class);
 	}
 	
 	@Test
