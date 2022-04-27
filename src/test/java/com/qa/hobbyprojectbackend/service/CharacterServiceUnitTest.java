@@ -43,7 +43,6 @@ public class CharacterServiceUnitTest {
 	
 	private List<MyCharacter> characters;
 	private List<MyCharacterDTO> characterDTOs;
-	private List<Weapon> weapons;
 	private List<WeaponDTO> weaponDTOs;
 	
 	@BeforeEach
@@ -55,7 +54,7 @@ public class CharacterServiceUnitTest {
 				new MyCharacterDTO(1, "Teoz", "Leonine", "", "Paladin", 5, "Oath of Vengeance", "Knight"),
 				new MyCharacterDTO(2, "Maria", "Tabaxi", "", "Rogue", 5, "Swashbuckler", "Sailor"));
 		
-		weapons = List.of(
+		List.of(
 				new Weapon(1, characters.get(0), "Manticore's Wrath", "Greataxe", "Martial Melee Weapon", "Very Rare", "30gp", "1d12 + 2", 
 				"Slashing", "Heavy, Two-Handed, Ranged", "+2 to attack rolls, ranged attack launching the spikes from the axe"),
 				new Weapon(2, characters.get(0), "Blackened Steel Heavy Hammer", "Maul", "Martial Melee Weapon", "Rare", "10gp", "2d6 + 1",
