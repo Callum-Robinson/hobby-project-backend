@@ -23,6 +23,7 @@ import com.qa.hobbyprojectbackend.data.entity.Weapon;
 import com.qa.hobbyprojectbackend.data.repository.WeaponRepository;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
 import com.qa.hobbyprojectbackend.dto.NewWeaponDTO;
+import com.qa.hobbyprojectbackend.dto.UpdateWeaponDTO;
 import com.qa.hobbyprojectbackend.dto.WeaponDTO;
 
 @ExtendWith(MockitoExtension.class)
@@ -192,5 +193,42 @@ public class WeaponServiceUnitTest {
 		String expectedMessage = "Weapon not found with id " + id;
 		assertEquals(expectedMessage, exception.getMessage());
 		verify(weaponRepository).existsById(id);
+	}
+	
+	@Test
+	public void updateTest() {
+		// Arrange
+		Weapon weapon = weapons.get(1);
+		int id = weapon.getId();
+		MyCharacterDTO characterDTO = characterDTOs.get(1);
+		
+		UpdateWeaponDTO weaponDTO = new UpdateWeaponDTO();
+		weaponDTO.setName(weaponDTO.getName());
+		weaponDTO.setBase_weapon(weaponDTO.getBase_weapon());
+		weaponDTO.setWeapon_type(weaponDTO.getWeapon_type());
+		weaponDTO.setRarity(weaponDTO.getRarity());
+		weaponDTO.setCost(weaponDTO.getCost());
+		weaponDTO.setDamage(weaponDTO.getDamage());
+		weaponDTO.setDamage_type(weaponDTO.getDamage_type());
+		weaponDTO.setProperties(weaponDTO.getProperties());
+		weaponDTO.setAdditional_abilities(weaponDTO.getAdditional_abilities());
+		
+		WeaponDTO updated = new WeaponDTO(1, characterDTO, weapon.getName(), weapon.getBase_weapon(), weapon.getWeapon_type(), weapon.getRarity(), 
+				weapon.getCost(), weapon.getDamage(), weapon.getDamage_type(), weapon.getProperties(), weapon.getAdditional_abilities());
+		
+		when(weaponRepository.existsById(id)).thenReturn(true);
+		when(weaponRepository.getById(id)).thenReturn(weapon);
+		when(weaponRepository.save(weapon)).thenReturn(weapon);
+		when(modelMapper.map(weapon, WeaponDTO.class)).thenReturn(updated);
+		
+		// Act
+		WeaponDTO actual = weaponService.updateWeapon(weaponDTO, id);
+		
+		// Assert
+		assertEquals(updated, actual);
+		verify(weaponRepository).existsById(id);
+		verify(weaponRepository).getById(id);
+		verify(weaponRepository).save(weapon);
+		verify(modelMapper).map(weapon, WeaponDTO.class);
 	}
 }
