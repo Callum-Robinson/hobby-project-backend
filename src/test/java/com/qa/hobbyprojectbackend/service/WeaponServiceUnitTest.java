@@ -1,8 +1,13 @@
 package com.qa.hobbyprojectbackend.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -52,4 +57,23 @@ public class WeaponServiceUnitTest {
 				new WeaponDTO(2, characterDTOs.get(0), "Blackened Steel Heavy Hammer", "Maul", "Martial Melee Weapon", "Rare", "10gp", "2d6 + 1",
 				"Bludgeoning", "Heavy, Two-Handed", "+1 to hit and damage, has a ground attack"));
 	}
+	
+	@Test
+	public void getAllTest() {
+		// Arrange
+		when(weaponRepository.findAll()).thenReturn(weapons);
+		when(modelMapper.map(weapons.get(0), WeaponDTO.class)).thenReturn(weaponDTOs.get(0));
+		when(modelMapper.map(weapons.get(1), WeaponDTO.class)).thenReturn(weaponDTOs.get(1));
+		
+		// Act
+		List<WeaponDTO> actual = weaponService.getWeapons();
+		
+		// Assert
+		assertEquals(weaponDTOs, actual);
+		verify(weaponRepository).findAll();
+		verify(modelMapper).map(weapons.get(0), WeaponDTO.class);
+		verify(modelMapper).map(weapons.get(1), WeaponDTO.class);
+	}
+	
+	
 }
