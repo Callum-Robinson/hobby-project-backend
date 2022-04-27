@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import com.qa.hobbyprojectbackend.data.entity.MyCharacter;
 import com.qa.hobbyprojectbackend.data.repository.CharacterRepository;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
-import com.qa.hobbyprojectbackend.dto.NewCharacterDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class CharacterServiceUnitTest {
@@ -27,16 +26,16 @@ public class CharacterServiceUnitTest {
 	private CharacterService characterService;
 	
 	private List<MyCharacter> characters;
-	private List<NewCharacterDTO> characterDTOs;
+	private List<MyCharacterDTO> characterDTOs;
 	
 	@BeforeEach
 	public void init() {
 		characters = List.of(
-				new MyCharacter("Teoz", "Leonine", "", "Paladin", 5, "Oath of Vengeance", "Knight"),
-				new MyCharacter("Maria", "Tabaxi", "", "Rogue", 5, "Swashbuckler", "Sailor"));
+				new MyCharacter(1, "Teoz", "Leonine", "", "Paladin", 5, "Oath of Vengeance", "Knight"),
+				new MyCharacter(2, "Maria", "Tabaxi", "", "Rogue", 5, "Swashbuckler", "Sailor"));
 		characterDTOs = List.of(
-				new NewCharacterDTO("Teoz", "Leonine", "", "Paladin", 5, "Oath of Vengeance", "Knight"),
-				new NewCharacterDTO("Maria", "Tabaxi", "", "Rogue", 5, "Swashbuckler", "Sailor"));
+				new MyCharacterDTO(1, "Teoz", "Leonine", "", "Paladin", 5, "Oath of Vengeance", "Knight"),
+				new MyCharacterDTO(2, "Maria", "Tabaxi", "", "Rogue", 5, "Swashbuckler", "Sailor"));
 	}
 	
 	
