@@ -7,6 +7,9 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -79,4 +82,23 @@ public class CharacterServiceUnitTest {
 		verify(characterRepository).findById(id);
 		verify(modelMapper).map(character, MyCharacterDTO.class);
 	}
+	
+	@Test
+	public void getByInvalidIdTest() {
+		// Arrange
+		int id = 300;
+		when(characterRepository.findById(id)).thenReturn(Optional.empty());
+		
+		// Act
+		EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
+			characterService.getCharacter(id);
+		});
+		
+		// Assert
+		String expectedMessage = "Character not found with id " + id;
+		assertEquals(expectedMessage, exception.getMessage());
+		verify(characterRepository).findById(id);
+	}
+	
+	
 }
