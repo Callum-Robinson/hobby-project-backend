@@ -163,4 +163,34 @@ public class WeaponServiceUnitTest {
 		verify(weaponRepository).save(newWeapon);
 		verify(modelMapper).map(weapon, WeaponDTO.class);
 	}
+	
+	@Test
+	public void deleteTest() {
+		// Arrange
+		int id = 1;
+		when(weaponRepository.existsById(id)).thenReturn(true);
+		
+		// Act
+		weaponService.deleteWeapon(id);
+		
+		// Assert
+		verify(weaponRepository).existsById(id);
+	}
+	
+	@Test
+	public void invalidIdDeleteTest() {
+		// Arrange
+		int id = 417;
+		when(weaponRepository.existsById(id)).thenReturn(false);
+		
+		// Act
+		EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
+			weaponService.deleteWeapon(id);
+		});
+		
+		// Assert
+		String expectedMessage = "Weapon not found with id " + id;
+		assertEquals(expectedMessage, exception.getMessage());
+		verify(weaponRepository).existsById(id);
+	}
 }
