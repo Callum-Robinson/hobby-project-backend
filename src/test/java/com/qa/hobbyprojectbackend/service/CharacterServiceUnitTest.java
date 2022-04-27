@@ -214,6 +214,24 @@ public class CharacterServiceUnitTest {
 	}
 	
 	@Test
+	public void invalidUpdateTest() {
+		// Arrange
+		int invalidId = 300;
+		UpdateCharacterDTO characterDTO = new UpdateCharacterDTO();
+		when(characterRepository.existsById(invalidId)).thenReturn(false);
+		
+		// Act
+		EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
+			characterService.updateCharacter(characterDTO, invalidId);
+		});
+		
+		// Assert
+		String expectedMessage = "Character not found with id " + invalidId;
+		assertEquals(expectedMessage, exception.getMessage());
+		verify(characterRepository).existsById(invalidId);
+	}
+	
+	@Test
 	public void getCharacterWeaponsTest() {
 		// Arrange
 		MyCharacter character = characters.get(0);
