@@ -5,7 +5,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -93,5 +97,41 @@ public class WeaponServiceUnitTest {
 		verify(weaponRepository).findByCharacterId(characterId);
 		verify(modelMapper).map(weapons.get(0), WeaponDTO.class);
 		verify(modelMapper).map(weapons.get(1), WeaponDTO.class);
+	}
+	
+	@Test
+	public void getByIdTest() {
+		// Arrange
+		Weapon weapon = weapons.get(0);
+		WeaponDTO weaponDTO = weaponDTOs.get(0);
+		int id = weapon.getId();
+		
+		when(weaponRepository.findById(id)).thenReturn(Optional.of(weapon));
+		when(modelMapper.map(weapon, WeaponDTO.class)).thenReturn(weaponDTO);
+		
+		// Act
+		WeaponDTO actual = weaponService.getWeapon(id);
+		
+		// Assert
+		assertEquals(weaponDTO, actual);
+		verify(weaponRepository).findById(id);
+		verify(modelMapper).map(weapon, WeaponDTO.class);
+	}
+	
+	@Test
+	public void getByInvalidId() {
+		// Arrange
+		int id = 555;
+		when(weaponRepository.findById(id)).thenReturn(Optional.empty());
+		
+		// Act
+		EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
+			weaponService.getWeapon(id);
+		});
+		
+		// Assert
+		String expectedMessage = "Weapon not found with id " + id;
+		assertEquals(expectedMessage, exception.getMessage());
+		verify(weaponRepository).findById(id);
 	}
 }
