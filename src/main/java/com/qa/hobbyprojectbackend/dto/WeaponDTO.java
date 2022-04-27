@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class WeaponDTO {
 	
 	private int id;
-	private MyCharacterDTO myCharacterDTO;
+	private MyCharacterDTO character;
 	
 	@NotBlank(message = "A weapon needs a name")
 	@Size(max = 64, message = "Weapon name can have a maximum of 64 characters")

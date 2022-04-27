@@ -98,7 +98,7 @@ public class CharacterService {
 	public List<WeaponDTO> getCharacterWeapons(int characterId) {
 		MyCharacterDTO character = this.getCharacter(characterId);
 		List<WeaponDTO> weapons = weaponService.getWeaponsByCharacterId(characterId);
-		weapons.forEach(weapon -> weapon.setMyCharacterDTO(character));
+		weapons.forEach(weapon -> weapon.setCharacter(character));
 		return weapons;
 	}
 }
