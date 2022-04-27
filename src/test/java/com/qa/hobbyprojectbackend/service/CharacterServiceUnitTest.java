@@ -21,6 +21,7 @@ import org.modelmapper.ModelMapper;
 import com.qa.hobbyprojectbackend.data.entity.MyCharacter;
 import com.qa.hobbyprojectbackend.data.repository.CharacterRepository;
 import com.qa.hobbyprojectbackend.dto.MyCharacterDTO;
+import com.qa.hobbyprojectbackend.dto.NewCharacterDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class CharacterServiceUnitTest {
@@ -100,5 +101,34 @@ public class CharacterServiceUnitTest {
 		verify(characterRepository).findById(id);
 	}
 	
-	
+	@Test
+	public void createTest() {
+		// Arrange
+		MyCharacter character = characters.get(0);
+		
+		NewCharacterDTO characterDTO = new NewCharacterDTO();
+		characterDTO.setName(character.getName());
+		characterDTO.setRace(character.getRace());
+		characterDTO.setSubrace(character.getSubrace());
+		characterDTO.setCharacter_class(character.getCharacter_class());
+		characterDTO.setLevel(character.getLevel());
+		characterDTO.setArchetype(character.getArchetype());
+		characterDTO.setBackground(character.getBackground());
+		
+		MyCharacterDTO newCharacter = new MyCharacterDTO(character.getId(), character.getName(), character.getRace(), 
+				character.getSubrace(), character.getCharacter_class(), character.getLevel(), character.getArchetype(), character.getBackground());
+		
+		when(modelMapper.map(characterDTO, MyCharacter.class)).thenReturn(character);
+		when(characterRepository.save(character)).thenReturn(character);
+		when(modelMapper.map(character, MyCharacterDTO.class)).thenReturn(newCharacter);
+		
+		// Act
+		MyCharacterDTO actual = characterService.createCharacter(characterDTO);
+		
+		// Assert
+		assertEquals(newCharacter, actual);
+		verify(modelMapper).map(characterDTO, MyCharacter.class);
+		verify(characterRepository).save(character);
+		verify(modelMapper).map(character, MyCharacterDTO.class);
+	}
 }
