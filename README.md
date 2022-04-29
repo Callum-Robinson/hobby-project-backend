@@ -1,5 +1,5 @@
 
-# Hobby Project - Fantasy Database
+# Hobby Project - Fantasy Database (Back End)
 
 This project as part of the Software course including Java and Spring.
 
