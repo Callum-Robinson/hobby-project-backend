@@ -3,7 +3,7 @@
 
 This project as part of the Software course including Java and Spring.
 
-This repo is the back-end fetch api of a Fantasy Database.
+This repo is the back-end for recieving fetch requests and accessing the Fantasy Database.
 
 The front end can be found at:
 https://github.com/Callum-Robinson/hobby-project-frontend
