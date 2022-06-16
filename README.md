@@ -24,6 +24,8 @@ Install this project by simply cloning
 
 ## Running the Application
 
+Ensure you have the correct MySQL login on the application-prod.properties file (default as root for username and password)
+
 Run the jar file as follows:
 
 ```bash
