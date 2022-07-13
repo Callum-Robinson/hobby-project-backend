@@ -24,7 +24,8 @@ Install this project by simply cloning
 
 ## Running the Application
 
-Ensure you have the correct MySQL login on the application-prod.properties file (default as root for username and password)
+Ensure you have the correct MySQL login on the application-prod.properties file (default as root for username and password) and set the active profile to prod
+***if wanting to the run the production version.***
 
 Run the jar file as follows:
 
