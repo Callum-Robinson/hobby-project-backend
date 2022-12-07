@@ -30,7 +30,7 @@ Ensure you have the correct MySQL login on the application-prod.properties file 
 Run the jar file as follows:
 
 ```bash
-  java -jar hobby-project-backend-0.0.1-SNAPSHOT
+  java -jar hobby-project-backend-0.0.1-SNAPSHOT.jar
 ```
 You can then send http requests to the local host port the application is running on
 
