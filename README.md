@@ -9,7 +9,7 @@ The front end can be found at:
 https://github.com/Callum-Robinson/hobby-project-frontend
 
 The kanban board can be found at:
-https://callumjrobinson.atlassian.net/jira/software/projects/HP/boards/3
+https://callumjrobinson.atlassian.net/jira/software/projects/HP/boards/3 (This may be unavailable if viewing later)
 
 
 
